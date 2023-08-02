@@ -1,0 +1,2 @@
+# MinecraftNameAvailibilityChecker
+Ez
