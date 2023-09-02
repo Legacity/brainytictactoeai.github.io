@@ -131,6 +131,7 @@
     </style>
 </head>
 <body>
+    <!-- Game Content -->
     <div class="message">Tic-Tac-Toe</div>
     <div class="board" id="board"></div>
     <div class="winner-message" id="winnerMessage"></div>
@@ -153,8 +154,11 @@
         ];
 
         let currentPlayer = "X";
+        let humanPlayer = "X";
+        let computerPlayer = "O";
         let gameOver = false;
 
+        // Initialize the game board
         cells.forEach((cell, index) => {
             cell = document.createElement("div");
             cell.classList.add("cell");
@@ -183,20 +187,23 @@
                 } else {
                     currentPlayer = currentPlayer === "X" ? "O" : "X";
                     document.querySelector(".message").textContent = `${currentPlayer}'s turn`;
-                    setTimeout(makeComputerMove, 1000);
+                    // Computer's move (AI)
+                    if (currentPlayer === computerPlayer) {
+                        setTimeout(makeComputerMove, 1000);
+                    }
                 }
             }
         }
 
         function makeComputerMove() {
             if (gameOver) return;
-            const bestMove = minimax(cells, currentPlayer).index;
-            cells[bestMove].textContent = currentPlayer;
+            const bestMove = minimax(cells, computerPlayer).index;
+            cells[bestMove].textContent = computerPlayer;
 
-            if (checkWin(currentPlayer)) {
+            if (checkWin(computerPlayer)) {
                 gameOver = true;
-                showWinningLine(currentPlayer, bestMove);
-                showWinnerMessage(currentPlayer);
+                showWinningLine(computerPlayer, bestMove);
+                showWinnerMessage(computerPlayer);
             } else if (cells.every((cell) => cell.textContent !== "")) {
                 gameOver = true;
                 displayWinnerModal("draw");
@@ -238,14 +245,39 @@
             return [x, y];
         }
 
-
+        // Modal Functions
         function displayWinnerModal(winner) {
-            const modalContainer = document.getElementById("modalContainer");
-            const modal = document.getElementById("modal");
-            const winnerText = document.getElementById("winnerText");
-            const tryAgainButton = document.getElementById("tryAgainButton");
-            const leaveButton = document.getElementById("leaveButton");
-
+            const modalContainer = document.createElement("div");
+            modalContainer.classList.add("modal-container");
+            modalContainer.id = "modalContainer";
+            
+            const modal = document.createElement("div");
+            modal.classList.add("modal");
+            
+            const winnerText = document.createElement("h2");
+            winnerText.id = "winnerText";
+            modal.appendChild(winnerText);
+            
+            const tryAgainButton = document.createElement("button");
+            tryAgainButton.id = "tryAgainButton";
+            tryAgainButton.textContent = "Try Again";
+            tryAgainButton.addEventListener("click", () => {
+                resetGame();
+                modalContainer.style.display = "none";
+            });
+            modal.appendChild(tryAgainButton);
+            
+            const leaveButton = document.createElement("button");
+            leaveButton.id = "leaveButton";
+            leaveButton.textContent = "Leave";
+            leaveButton.addEventListener("click", () => {
+                modalContainer.style.display = "none";
+            });
+            modal.appendChild(leaveButton);
+            
+            modalContainer.appendChild(modal);
+            document.body.appendChild(modalContainer);
+            
             if (winner === "draw") {
                 winnerText.textContent = "It's a draw!";
             } else {
@@ -253,15 +285,6 @@
             }
 
             modalContainer.style.display = "flex";
-
-            tryAgainButton.addEventListener("click", () => {
-                resetGame();
-                modalContainer.style.display = "none";
-            });
-
-            leaveButton.addEventListener("click", () => {
-                modalContainer.style.display = "none";
-            });
         }
 
         function resetGame() {
@@ -275,6 +298,7 @@
             winningLine.style.animation = "none";
             winnerMessage.style.display = "none";
             document.querySelector(".message").textContent = "Tic-Tac-Toe";
+            document.getElementById("board").style.pointerEvents = "auto";
         }
 
         function minimax(board, player) {
@@ -282,9 +306,9 @@
                 .filter(cell => cell.textContent === "")
                 .map(cell => cell.dataset.index);
                 
-            if (checkWin("X")) {
+            if (checkWin(humanPlayer)) {
                 return { score: -1 };
-            } else if (checkWin("O")) {
+            } else if (checkWin(computerPlayer)) {
                 return { score: 1 };
             } else if (availableMoves.length === 0) {
                 return { score: 0 };
@@ -297,11 +321,11 @@
                 move.index = board[availableMoves[i]].dataset.index;
                 board[availableMoves[i]].textContent = player;
 
-                if (player === "O") {
-                    const result = minimax(board, "X");
+                if (player === computerPlayer) {
+                    const result = minimax(board, humanPlayer);
                     move.score = result.score;
                 } else {
-                    const result = minimax(board, "O");
+                    const result = minimax(board, computerPlayer);
                     move.score = result.score;
                 }
 
@@ -310,7 +334,7 @@
             }
 
             let bestMove;
-            if (player === "O") {
+            if (player === computerPlayer) {
                 let bestScore = -Infinity;
                 for (let i = 0; i < moves.length; i++) {
                     if (moves[i].score > bestScore) {
@@ -332,14 +356,7 @@
         }
     </script>
 
-    <div class="modal-container" id="modalContainer">
-        <div class="modal">
-            <h2 id="winnerText">Winner</h2>
-            <button id="tryAgainButton">Try Again</button>
-            <button id="leaveButton">Leave</button>
-        </div>
-    </div>
-
+    <!-- Made by Ahmad Malik -->
     <div class="made-by">
         Made by Ahmad Malik
     </div>
