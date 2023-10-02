@@ -2,7 +2,6 @@
 
 Welcome to **TicTacToe but the AI is Einstein's Vessel**, a classic Tic-Tac-Toe game with an intelligent twist! Play against a challenging AI opponent powered by Einstein's Vessel's brainpower. Can you outsmart the legendary mind?
 
-![TicTacToe but the AI is Einstein's Vessel](link_to_your_game_screenshot)
 
 ## Features
 
@@ -13,7 +12,6 @@ Welcome to **TicTacToe but the AI is Einstein's Vessel**, a classic Tic-Tac-Toe 
 - **Random AI Dialogues:** Engage with the AI through random dialogues, adding a touch of personality to your opponent.
 - **Responsive Layout:** Play seamlessly on various devices, from desktops to smartphones.
 
-## How to Play
 
 1. **X Starts:** The game starts with the player as 'X' and the AI as 'O'.
 2. **Make Your Move:** Click on an empty cell to place your symbol ('X') on the board.
@@ -28,6 +26,6 @@ Welcome to **TicTacToe but the AI is Einstein's Vessel**, a classic Tic-Tac-Toe 
 - **JavaScript:** Game logic and AI algorithms for intelligent gameplay.
 
 
-**TicTacToe but the AI is Einstein's Vessel** is created by [MightyNaughty ](https://github.com/mightynaughty) - Connect with me on [LinkedIn] (https://www.linkedin.com/in/ahmad-malik-837019294/)!
+**TicTacToe but the AI is Einstein's Vessel** is created by [MightyNaughty ](https://github.com/mightynaughty)
 
 Enjoy the game and may the smartest player win! 🧠✨
